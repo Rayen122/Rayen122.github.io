@@ -65,3 +65,19 @@ le navigateur.
 
 Build statique, rien côté serveur : `dist/` se pose tel quel sur Vercel, Netlify,
 GitHub Pages ou un hébergement mutualisé.
+
+## Hébergement
+
+Le site est publié sur GitHub Pages : <https://rayen122.github.io>
+
+- Branche `main` : le code source.
+- Branche `gh-pages` : le contenu de `dist/` servi par Pages.
+
+Pour redéployer après des modifications :
+
+```bash
+npm run deploy
+```
+
+Le script construit le projet, copie `dist/` sur la branche `gh-pages`
+et la force-push. Pages se reconstruit tout seul en une minute environ.
