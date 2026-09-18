@@ -17,7 +17,7 @@ function Row({ items, direction, offset }: { items: string[]; direction: 1 | -1;
 
   return (
     <div
-      className="flex gap-3"
+      className="flex gap-2 sm:gap-3"
       style={{ transform: `translateX(${direction * (offset - 200)}px)`, willChange: 'transform' }}
     >
       {tripled.map((src, i) => (
@@ -28,7 +28,7 @@ function Row({ items, direction, offset }: { items: string[]; direction: 1 | -1;
           aria-hidden="true"
           loading="lazy"
           decoding="async"
-          className="h-[270px] w-[420px] shrink-0 rounded-2xl object-cover object-top"
+          className="h-[130px] w-[205px] max-w-none shrink-0 rounded-xl object-cover object-top sm:h-[180px] sm:w-[285px] sm:rounded-2xl md:h-[225px] md:w-[350px] lg:h-[270px] lg:w-[420px]"
         />
       ))}
     </div>

@@ -7,7 +7,7 @@ type LiveProjectButtonProps = {
 
 export default function LiveProjectButton({ href, label = 'Voir le site' }: LiveProjectButtonProps) {
   const classes =
-    'inline-flex shrink-0 items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-8 py-3 text-sm font-medium uppercase tracking-widest text-[#D7E2EA] transition-colors duration-200 sm:px-10 sm:py-3.5 sm:text-base'
+    'inline-flex min-h-[44px] shrink-0 items-center gap-2 rounded-full border-2 border-[#D7E2EA] px-6 py-3 text-xs font-medium uppercase tracking-widest text-[#D7E2EA] transition-colors duration-200 sm:px-10 sm:py-3.5 sm:text-base'
 
   if (!href) {
     return (

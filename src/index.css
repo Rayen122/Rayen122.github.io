@@ -19,6 +19,14 @@
 
   html {
     scroll-behavior: smooth;
+    /* iOS inflates font sizes in landscape unless this is pinned. */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    -webkit-tap-highlight-color: transparent;
+    overflow-x: clip;
   }
 
   body {

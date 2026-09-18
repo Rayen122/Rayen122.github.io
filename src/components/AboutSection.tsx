@@ -23,7 +23,7 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative flex min-h-screen items-center justify-center px-5 py-20 sm:px-8 md:px-10"
+      className="relative flex min-h-[100svh] items-center justify-center px-5 py-20 sm:px-8 md:px-10"
       style={{ overflowX: 'clip' }}
     >
       <FadeIn delay={0.1} x={-80} y={0} duration={0.9}>

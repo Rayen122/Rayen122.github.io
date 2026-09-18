@@ -24,7 +24,7 @@ function Card({
   const scale = useTransform(progress, [index / total, 1], [1, targetScale])
 
   return (
-    <div className="sticky top-20 flex h-[86vh] items-start justify-center md:top-28">
+    <div className="sticky top-16 flex h-[86svh] items-start justify-center sm:top-20 md:top-28">
       <motion.article
         style={{ scale, top: `${index * 28}px` }}
         className={`relative flex h-full w-full flex-col gap-4 overflow-hidden border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:gap-6 sm:p-6 md:p-8 ${RADIUS}`}
@@ -47,10 +47,10 @@ function Card({
               >
                 {project.name}
               </h3>
-              <p className="hidden max-w-3xl pt-1 text-sm font-light leading-relaxed text-[#D7E2EA]/60 lg:block">
+              <p className="line-clamp-3 max-w-3xl pt-1 text-xs font-light leading-relaxed text-[#D7E2EA]/60 sm:text-sm lg:line-clamp-none">
                 {project.summary}
               </p>
-              <ul className="hidden list-none flex-wrap gap-2 pt-2 lg:flex">
+              <ul className="hidden list-none flex-wrap gap-2 pt-2 sm:flex">
                 {project.stack.map((tech) => (
                   <li
                     key={tech}
@@ -80,11 +80,9 @@ function Card({
                 alt={`${project.name} — aperçu`}
                 loading="lazy"
                 decoding="async"
-                /* Each phone claims an equal share of the row minus the widest gap, so any count fits. */
-                style={{
-                  maxWidth: `calc((100% - ${(project.images.length - 1) * 24}px) / ${project.images.length})`,
-                }}
-                className={`h-full min-h-0 w-auto object-contain ${
+                /* flex-1 splits the row between whichever phones are visible at this width —
+                   a fixed share computed from the full count starved the lone phone on mobile. */
+                className={`h-full min-h-0 w-full min-w-0 flex-1 object-contain ${
                   i === Math.floor(project.images.length / 2) ? '' : 'hidden sm:block'
                 } ${SHOT_RADIUS}`}
               />
@@ -98,14 +96,14 @@ function Card({
                 alt={`${project.name} — aperçu`}
                 loading="lazy"
                 decoding="async"
-                className={`min-h-0 w-full flex-[2] object-cover object-top ${SHOT_RADIUS}`}
+                className={`min-h-0 w-full flex-1 object-cover object-top sm:flex-[2] ${SHOT_RADIUS}`}
               />
               <img
                 src={project.images[1]}
                 alt={`${project.name} — aperçu`}
                 loading="lazy"
                 decoding="async"
-                className={`min-h-0 w-full flex-[3] object-cover object-top ${SHOT_RADIUS}`}
+                className={`min-h-0 w-full flex-1 object-cover object-top sm:flex-[3] ${SHOT_RADIUS}`}
               />
             </div>
             <img
@@ -113,7 +111,7 @@ function Card({
               alt={`${project.name} — aperçu`}
               loading="lazy"
               decoding="async"
-              className={`h-full min-h-0 w-full object-cover object-top ${SHOT_RADIUS}`}
+              className={`hidden h-full min-h-0 w-full object-cover object-top sm:block ${SHOT_RADIUS}`}
             />
           </div>
         )}
