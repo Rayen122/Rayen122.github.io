@@ -83,19 +83,19 @@ function Card({
         </header>
 
         {project.layout === 'mobile' ? (
-          <div className="flex min-h-0 flex-1 items-center justify-center gap-3 sm:gap-4 md:gap-6">
-            {project.images.map((src, i) => (
+          /* Five or six phones abreast only stay readable on a wide screen, so below lg the row is a
+             snap-scrolling strip — every screen full height, one swipe apart. */
+          <div className="no-scrollbar -mx-1 flex min-h-0 flex-1 snap-x snap-mandatory items-center gap-3 overflow-x-auto px-1 sm:gap-4 md:gap-6 lg:mx-0 lg:justify-center lg:overflow-visible lg:px-0">
+            {project.images.map((src) => (
               <img
                 key={src}
                 src={src}
                 alt={`${project.name} — aperçu`}
                 loading="lazy"
                 decoding="async"
-                /* flex-1 splits the row between whichever phones are visible at this width —
-                   a fixed share computed from the full count starved the lone phone on mobile. */
-                className={`h-full min-h-0 w-full min-w-0 flex-1 object-contain ${
-                  i === Math.floor(project.images.length / 2) ? '' : 'hidden sm:block'
-                } ${SHOT_RADIUS}`}
+                /* flex-1 splits the row between the phones once they all fit — a fixed share
+                   computed from the full count starved them at the narrow end. */
+                className={`h-full min-h-0 w-auto max-w-none shrink-0 snap-center object-contain lg:w-full lg:min-w-0 lg:max-w-full lg:flex-1 lg:shrink ${SHOT_RADIUS}`}
               />
             ))}
           </div>

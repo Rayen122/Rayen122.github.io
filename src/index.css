@@ -48,6 +48,15 @@
 }
 
 @layer components {
+  /* The phone strips inside project cards scroll horizontally; the bar would sit on the artwork. */
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .hero-heading {
     background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
     -webkit-background-clip: text;
