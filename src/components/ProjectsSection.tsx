@@ -6,8 +6,16 @@ import LiveProjectButton from './LiveProjectButton'
 import { projects, sideProjects } from '../data/projects'
 import type { Project } from '../data/projects'
 
-const RADIUS = 'rounded-[40px] sm:rounded-[50px] md:rounded-[60px]'
-const SHOT_RADIUS = 'rounded-2xl sm:rounded-3xl'
+const RADIUS = 'rounded-[32px] sm:rounded-[50px] md:rounded-[60px]'
+const SHOT_RADIUS = 'rounded-xl sm:rounded-3xl'
+
+/* The stack lives inside the viewport: every card sticks at --card-top and is nudged down by
+   --stack-step per index, so the deepest card must be that much shorter to stay fully visible. */
+const STACK_VARS =
+  '[--card-gap:1rem] [--card-top:0.75rem] [--stack-step:9px] ' +
+  'sm:[--card-gap:1.25rem] sm:[--card-top:1.5rem] sm:[--stack-step:14px] ' +
+  'md:[--card-gap:1.5rem] md:[--card-top:3rem] md:[--stack-step:16px] ' +
+  'lg:[--card-top:4rem] lg:[--stack-step:20px]'
 
 function Card({
   project,
@@ -24,30 +32,33 @@ function Card({
   const scale = useTransform(progress, [index / total, 1], [1, targetScale])
 
   return (
-    <div className="sticky top-16 flex h-[86svh] items-start justify-center sm:top-20 md:top-28">
+    <div
+      className="sticky top-[var(--card-top)] flex items-start justify-center"
+      style={{ height: `calc(100svh - var(--card-top) - var(--stack-step) * ${total - 1} - var(--card-gap))` }}
+    >
       <motion.article
-        style={{ scale, top: `${index * 28}px` }}
-        className={`relative flex h-full w-full flex-col gap-4 overflow-hidden border-2 border-[#D7E2EA] bg-[#0C0C0C] p-4 sm:gap-6 sm:p-6 md:p-8 ${RADIUS}`}
+        style={{ scale, top: `calc(var(--stack-step) * ${index})` }}
+        className={`relative flex h-full w-full flex-col gap-3 overflow-hidden border-2 border-[#D7E2EA] bg-[#0C0C0C] p-3 sm:gap-6 sm:p-6 md:p-8 ${RADIUS}`}
       >
-        <header className="flex shrink-0 flex-col gap-4 md:flex-row md:items-start md:justify-between">
-          <div className="flex items-start gap-4 md:gap-8">
+        <header className="flex shrink-0 flex-col gap-3 md:flex-row md:items-start md:justify-between md:gap-4">
+          <div className="flex items-start gap-3 md:gap-8">
             <span
               className="hero-heading shrink-0 font-black leading-none"
-              style={{ fontSize: 'clamp(2.5rem, 7vw, 100px)' }}
+              style={{ fontSize: 'clamp(1.9rem, 7vw, 100px)' }}
             >
               {String(index + 1).padStart(2, '0')}
             </span>
-            <div className="flex flex-col gap-1 pt-1 md:gap-2 md:pt-2">
-              <span className="text-[0.65rem] font-light uppercase tracking-[0.2em] text-[#D7E2EA]/60 sm:text-xs">
+            <div className="flex flex-col gap-0.5 pt-0.5 md:gap-2 md:pt-2">
+              <span className="text-[0.6rem] font-light uppercase tracking-[0.18em] text-[#D7E2EA]/60 sm:text-xs sm:tracking-[0.2em]">
                 {project.category} · {project.year}
               </span>
               <h3
                 className="font-medium uppercase leading-none text-[#D7E2EA]"
-                style={{ fontSize: 'clamp(1.1rem, 2.6vw, 2.4rem)' }}
+                style={{ fontSize: 'clamp(1rem, 2.6vw, 2.4rem)' }}
               >
                 {project.name}
               </h3>
-              <p className="line-clamp-3 max-w-3xl pt-1 text-xs font-light leading-relaxed text-[#D7E2EA]/60 sm:text-sm lg:line-clamp-none">
+              <p className="line-clamp-2 max-w-3xl pt-1 text-[0.7rem] font-light leading-snug text-[#D7E2EA]/60 sm:line-clamp-3 sm:text-sm sm:leading-relaxed lg:line-clamp-none">
                 {project.summary}
               </p>
               <ul className="hidden list-none flex-wrap gap-2 pt-2 sm:flex">
@@ -65,7 +76,7 @@ function Card({
           {project.href ? (
             <LiveProjectButton href={project.href} label={project.linkLabel ?? 'Voir le site'} />
           ) : (
-            <span className="shrink-0 self-start rounded-full border border-[#D7E2EA]/25 px-5 py-2 text-[0.65rem] font-light uppercase tracking-[0.2em] text-[#D7E2EA]/45">
+            <span className="shrink-0 self-start rounded-full border border-[#D7E2EA]/25 px-3 py-1 text-[0.55rem] font-light uppercase tracking-[0.16em] text-[#D7E2EA]/45 sm:px-5 sm:py-2 sm:text-[0.65rem] sm:tracking-[0.2em]">
               Projet client · privé
             </span>
           )}
@@ -89,21 +100,21 @@ function Card({
             ))}
           </div>
         ) : (
-          <div className="grid min-h-0 flex-1 grid-cols-1 gap-3 sm:grid-cols-[40%_1fr] sm:gap-4">
-            <div className="flex min-h-0 flex-col gap-3 sm:gap-4">
+          <div className="grid min-h-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-[40%_1fr] sm:gap-4">
+            <div className="flex min-h-0 flex-col gap-2 sm:gap-4">
               <img
                 src={project.images[0]}
                 alt={`${project.name} — aperçu`}
                 loading="lazy"
                 decoding="async"
-                className={`min-h-0 w-full flex-1 object-cover object-top sm:flex-[2] ${SHOT_RADIUS}`}
+                className={`min-h-0 w-full flex-1 object-contain object-center sm:flex-[2] sm:object-cover sm:object-top ${SHOT_RADIUS}`}
               />
               <img
                 src={project.images[1]}
                 alt={`${project.name} — aperçu`}
                 loading="lazy"
                 decoding="async"
-                className={`min-h-0 w-full flex-1 object-cover object-top sm:flex-[3] ${SHOT_RADIUS}`}
+                className={`min-h-0 w-full flex-1 object-contain object-center sm:flex-[3] sm:object-cover sm:object-top ${SHOT_RADIUS}`}
               />
             </div>
             <img
@@ -127,7 +138,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="relative z-10 -mt-10 rounded-t-[40px] bg-[#0C0C0C] px-4 pb-20 pt-20 sm:-mt-12 sm:rounded-t-[50px] sm:px-6 sm:pt-24 md:-mt-14 md:rounded-t-[60px] md:px-10 md:pt-32"
+      className="relative z-10 -mt-10 rounded-t-[40px] bg-[#0C0C0C] px-3 pb-20 pt-20 sm:-mt-12 sm:rounded-t-[50px] sm:px-6 sm:pt-24 md:-mt-14 md:rounded-t-[60px] md:px-10 md:pt-32"
       style={{ overflowX: 'clip' }}
     >
       <FadeIn delay={0} y={40}>
@@ -139,7 +150,7 @@ export default function ProjectsSection() {
         </h2>
       </FadeIn>
 
-      <div ref={containerRef} className="mx-auto max-w-[1400px]">
+      <div ref={containerRef} className={`mx-auto max-w-[1400px] ${STACK_VARS}`}>
         {projects.map((project, i) => (
           <Card key={project.id} project={project} index={i} total={projects.length} progress={scrollYProgress} />
         ))}
