@@ -44,7 +44,7 @@ function Card({
           <div className="flex items-start gap-3 md:gap-8">
             <span
               className="hero-heading shrink-0 font-black leading-none"
-              style={{ fontSize: 'clamp(1.9rem, 7vw, 100px)' }}
+              style={{ fontSize: 'clamp(1.9rem, min(7vw, 9svh), 100px)' }}
             >
               {String(index + 1).padStart(2, '0')}
             </span>
@@ -54,14 +54,14 @@ function Card({
               </span>
               <h3
                 className="font-medium uppercase leading-none text-[#D7E2EA]"
-                style={{ fontSize: 'clamp(1rem, 2.6vw, 2.4rem)' }}
+                style={{ fontSize: 'clamp(1rem, min(2.6vw, 4svh), 2.4rem)' }}
               >
                 {project.name}
               </h3>
-              <p className="line-clamp-2 max-w-3xl pt-1 text-[0.7rem] font-light leading-snug text-[#D7E2EA]/60 sm:line-clamp-3 sm:text-sm sm:leading-relaxed lg:line-clamp-none">
+              <p className="line-clamp-2 max-w-3xl pt-1 text-[0.7rem] font-light leading-snug text-[#D7E2EA]/60 sm:text-sm sm:leading-relaxed [@media(min-height:720px)]:sm:line-clamp-3">
                 {project.summary}
               </p>
-              <ul className="hidden list-none flex-wrap gap-2 pt-2 sm:flex">
+              <ul className="hidden list-none flex-wrap gap-2 pt-2 [@media(min-height:720px)]:sm:flex">
                 {project.stack.map((tech) => (
                   <li
                     key={tech}
@@ -83,9 +83,9 @@ function Card({
         </header>
 
         {project.layout === 'mobile' ? (
-          /* Five or six phones abreast only stay readable on a wide screen, so below lg the row is a
+          /* Five or six phones abreast only stay readable from tablet width up; below md the row is a
              snap-scrolling strip — every screen full height, one swipe apart. */
-          <div className="no-scrollbar -mx-1 flex min-h-0 flex-1 snap-x snap-mandatory items-center gap-3 overflow-x-auto px-1 sm:gap-4 md:gap-6 lg:mx-0 lg:justify-center lg:overflow-visible lg:px-0">
+          <div className="no-scrollbar -mx-1 flex min-h-0 flex-1 snap-x snap-mandatory items-center gap-3 overflow-x-auto px-1 sm:gap-4 md:gap-6 md:mx-0 md:justify-center md:overflow-visible md:px-0">
             {project.images.map((src) => (
               <img
                 key={src}
@@ -95,13 +95,13 @@ function Card({
                 decoding="async"
                 /* flex-1 splits the row between the phones once they all fit — a fixed share
                    computed from the full count starved them at the narrow end. */
-                className={`h-full min-h-0 w-auto max-w-none shrink-0 snap-center object-contain lg:w-full lg:min-w-0 lg:max-w-full lg:flex-1 lg:shrink ${SHOT_RADIUS}`}
+                className={`h-full min-h-0 w-auto max-w-none shrink-0 snap-center object-contain md:w-full md:min-w-0 md:max-w-full md:flex-1 md:shrink ${SHOT_RADIUS}`}
               />
             ))}
           </div>
         ) : (
-          <div className="grid min-h-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-[40%_1fr] sm:gap-4">
-            <div className="flex min-h-0 flex-col gap-2 sm:gap-4">
+          <div className="shot-mosaic grid min-h-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-[40%_1fr] sm:gap-4">
+            <div className="shot-col flex min-h-0 flex-col gap-2 sm:gap-4">
               <img
                 src={project.images[0]}
                 alt={`${project.name} — aperçu`}

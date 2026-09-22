@@ -57,6 +57,38 @@
     display: none;
   }
 
+  /* Project shots are 16:10, and the 40/60 mosaic only shows them whole when the card is tall.
+     A shorter window slices each one into a band, so from md up the three shots fall back to a
+     single contained row — two abreast, three once the card is wide enough for it. Doubled class
+     names and the `img` tag keep these ahead of the Tailwind utilities they override. */
+  @media (min-width: 768px) and (max-height: 979px) {
+    .shot-mosaic.shot-mosaic {
+      display: flex;
+      align-items: center;
+    }
+
+    .shot-mosaic .shot-col {
+      display: contents;
+    }
+
+    .shot-mosaic img {
+      flex: 1 1 0;
+      min-width: 0;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .shot-mosaic > img {
+      display: none;
+    }
+  }
+
+  @media (min-width: 1280px) and (max-height: 979px) {
+    .shot-mosaic > img {
+      display: block;
+    }
+  }
+
   .hero-heading {
     background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
     -webkit-background-clip: text;
