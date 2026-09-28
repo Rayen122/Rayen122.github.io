@@ -73,6 +73,8 @@ export const projects: Project[] = [
     summary:
       "Distributeur tunisien d'automatisation industrielle depuis 2014 : pneumatique, hydraulique, capteurs et instrumentation. Site refondu et rendu éditable par un CMS maison — contenu en JSON, back-office protégé (login, CSRF, upload d'images), brochure PDF. Déployé chez OVH.",
     stack: ['CMS maison', 'JSON', 'OVH', 'SEO'],
+    href: 'https://isp-automation.com.tn/',
+    linkLabel: 'Site en ligne',
     images: ['/shots/isp-1.webp', '/shots/isp-2.webp', '/shots/isp-3.webp'],
   },
   {
