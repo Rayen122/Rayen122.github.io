@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120" width="340" height="120" role="img" aria-label="borgi.dev">
+  <title>borgi.dev</title>
+  <path fill="#D7E2EA" fill-rule="evenodd" d="M41 16 H55 V104 H41 Z M55 16 A20 20 0 0 1 55 56 Z M55 56 A24 24 0 0 1 55 104 Z M55 27 A9 9 0 0 1 55 45 Z M55 68 A12 12 0 0 1 55 92 Z"/>
+  <rect x="103" y="26" width="1.5" height="68" fill="#232830"/>
+  <text x="128" y="76" font-family="Kanit, sans-serif" font-size="46" font-weight="700" letter-spacing="-1" fill="#D7E2EA">borgi<tspan fill="#2E6FD8">.dev</tspan></text>
+</svg>
