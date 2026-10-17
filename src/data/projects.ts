@@ -141,6 +141,26 @@ export const projects: Project[] = [
       '/shots/khademni-5.webp',
     ],
   },
+  {
+    id: 'pet-sitter',
+    name: 'Pet Sitter',
+    category: 'Concept · App mobile',
+    year: '2026',
+    summary:
+      "Garde d'animaux entre voisins en Tunisie : recherche de sitters par quartier (liste ou carte), profil, demande de réservation, journal de garde et boutique, avec un formulaire d'animal qui s'adapte à l'espèce. App Flutter en MVVM, prix en DT, animations maison inspirées de GSAP.",
+    stack: ['Flutter', 'Dart', 'MVVM', 'Motion maison'],
+    layout: 'mobile',
+    images: [
+      '/shots/pet-sitter-1.webp',
+      '/shots/pet-sitter-5.webp',
+      '/shots/pet-sitter-6.webp',
+      '/shots/pet-sitter-7.webp',
+      '/shots/pet-sitter-8.webp',
+      '/shots/pet-sitter-9.webp',
+    ],
+    // Splash, guide, inscription, connexion, puis le parcours propriétaire.
+    gallery: Array.from({ length: 11 }, (_, i) => `/shots/pet-sitter-${i + 1}.webp`),
+  },
 ]
 
 export type SideProject = {
