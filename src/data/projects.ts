@@ -11,9 +11,11 @@ export type Project = {
   layout?: 'mobile'
   /** Web cards read the first three; mobile cards render every entry. */
   images: [string, string, string, ...string[]]
+  /** Every screenshot the lightbox walks through; defaults to `images`. */
+  gallery?: string[]
 }
 
-/** Eight pieces of work that carry the portfolio — each card stacks and scales on scroll. */
+/** The pieces of work that carry the portfolio — each card stacks and scales on scroll. */
 export const projects: Project[] = [
   {
     id: 'rais-store',
@@ -36,6 +38,19 @@ export const projects: Project[] = [
     href: 'https://farhty.vercel.app',
     linkLabel: 'Site en ligne',
     images: ['/shots/farhty-1.webp', '/shots/farhty-2.webp', '/shots/farhty-3.webp'],
+  },
+  {
+    id: 'john-coffee',
+    name: 'John Coffee Food',
+    category: 'Client · Gestion de café',
+    year: '2026',
+    summary:
+      "Caisse d'un café migrée de Firebase vers Next.js et PostgreSQL, interface inchangée : commandes par table, paiement partiel, stock et clôture de caisse. 26 000 enregistrements importés et vérifiés, PWA installable.",
+    stack: ['Next.js', 'TypeScript', 'Supabase', 'PostgreSQL', 'PWA'],
+    href: 'https://john-coffee-next.vercel.app/cafe',
+    linkLabel: 'Site en ligne',
+    images: ['/shots/john-coffee-1.webp', '/shots/john-coffee-2.webp', '/shots/john-coffee-3.webp'],
+    gallery: Array.from({ length: 17 }, (_, i) => `/shots/john-coffee-${i + 1}.webp`),
   },
   {
     id: 'calyrox',

@@ -1,13 +1,19 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import type { MotionValue } from 'framer-motion'
+import { Images } from 'lucide-react'
 import FadeIn from './FadeIn'
 import LiveProjectButton from './LiveProjectButton'
+import Lightbox from './Lightbox'
+import type { LightboxState } from './Lightbox'
 import { projects, sideProjects } from '../data/projects'
 import type { Project } from '../data/projects'
 
 const RADIUS = 'rounded-[32px] sm:rounded-[50px] md:rounded-[60px]'
 const SHOT_RADIUS = 'rounded-xl sm:rounded-3xl'
+const ZOOM = 'cursor-zoom-in transition-opacity duration-200 hover:opacity-85'
+
+type OpenGallery = (title: string, images: string[], src: string) => void
 
 /* The stack lives inside the viewport: every card sticks at --card-top and is nudged down by
    --stack-step per index, so the deepest card must be that much shorter to stay fully visible. */
@@ -22,14 +28,18 @@ function Card({
   index,
   total,
   progress,
+  onOpen,
 }: {
   project: Project
   index: number
   total: number
   progress: MotionValue<number>
+  onOpen: OpenGallery
 }) {
   const targetScale = 1 - (total - 1 - index) * 0.03
   const scale = useTransform(progress, [index / total, 1], [1, targetScale])
+  const gallery = project.gallery ?? project.images
+  const open = (src: string) => onOpen(project.name, gallery, src)
 
   return (
     <div
@@ -82,50 +92,64 @@ function Card({
           )}
         </header>
 
-        {project.layout === 'mobile' ? (
-          /* Five or six phones abreast only stay readable from tablet width up; below md the row is a
-             snap-scrolling strip — every screen full height, one swipe apart. */
-          <div className="no-scrollbar -mx-1 flex min-h-0 flex-1 snap-x snap-mandatory items-center gap-3 overflow-x-auto px-1 sm:gap-4 md:gap-6 md:mx-0 md:justify-center md:overflow-visible md:px-0">
-            {project.images.map((src) => (
+        <div className="relative flex min-h-0 flex-1 flex-col">
+          {project.layout === 'mobile' ? (
+            /* Five or six phones abreast only stay readable from tablet width up; below md the row is a
+               snap-scrolling strip — every screen full height, one swipe apart. */
+            <div className="no-scrollbar -mx-1 flex min-h-0 flex-1 snap-x snap-mandatory items-center gap-3 overflow-x-auto px-1 sm:gap-4 md:gap-6 md:mx-0 md:justify-center md:overflow-visible md:px-0">
+              {project.images.map((src) => (
+                <img
+                  key={src}
+                  src={src}
+                  alt={`${project.name} — aperçu`}
+                  loading="lazy"
+                  decoding="async"
+                  /* flex-1 splits the row between the phones once they all fit — a fixed share
+                     computed from the full count starved them at the narrow end. */
+                  className={`h-full min-h-0 w-auto max-w-none shrink-0 snap-center object-contain md:w-full md:min-w-0 md:max-w-full md:flex-1 md:shrink ${SHOT_RADIUS} ${ZOOM}`}
+                  onClick={() => open(src)}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="shot-mosaic grid min-h-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-[40%_1fr] sm:gap-4">
+              <div className="shot-col flex min-h-0 flex-col gap-2 sm:gap-4">
+                <img
+                  src={project.images[0]}
+                  alt={`${project.name} — aperçu`}
+                  loading="lazy"
+                  decoding="async"
+                  className={`min-h-0 w-full flex-1 object-contain object-center sm:flex-[2] sm:object-cover sm:object-top ${SHOT_RADIUS} ${ZOOM}`}
+                  onClick={() => open(project.images[0])}
+                />
+                <img
+                  src={project.images[1]}
+                  alt={`${project.name} — aperçu`}
+                  loading="lazy"
+                  decoding="async"
+                  className={`min-h-0 w-full flex-1 object-contain object-center sm:flex-[3] sm:object-cover sm:object-top ${SHOT_RADIUS} ${ZOOM}`}
+                  onClick={() => open(project.images[1])}
+                />
+              </div>
               <img
-                key={src}
-                src={src}
+                src={project.images[2]}
                 alt={`${project.name} — aperçu`}
                 loading="lazy"
                 decoding="async"
-                /* flex-1 splits the row between the phones once they all fit — a fixed share
-                   computed from the full count starved them at the narrow end. */
-                className={`h-full min-h-0 w-auto max-w-none shrink-0 snap-center object-contain md:w-full md:min-w-0 md:max-w-full md:flex-1 md:shrink ${SHOT_RADIUS}`}
-              />
-            ))}
-          </div>
-        ) : (
-          <div className="shot-mosaic grid min-h-0 flex-1 grid-cols-1 gap-2 sm:grid-cols-[40%_1fr] sm:gap-4">
-            <div className="shot-col flex min-h-0 flex-col gap-2 sm:gap-4">
-              <img
-                src={project.images[0]}
-                alt={`${project.name} — aperçu`}
-                loading="lazy"
-                decoding="async"
-                className={`min-h-0 w-full flex-1 object-contain object-center sm:flex-[2] sm:object-cover sm:object-top ${SHOT_RADIUS}`}
-              />
-              <img
-                src={project.images[1]}
-                alt={`${project.name} — aperçu`}
-                loading="lazy"
-                decoding="async"
-                className={`min-h-0 w-full flex-1 object-contain object-center sm:flex-[3] sm:object-cover sm:object-top ${SHOT_RADIUS}`}
+                className={`hidden h-full min-h-0 w-full object-cover object-top sm:block ${SHOT_RADIUS} ${ZOOM}`}
+                onClick={() => open(project.images[2])}
               />
             </div>
-            <img
-              src={project.images[2]}
-              alt={`${project.name} — aperçu`}
-              loading="lazy"
-              decoding="async"
-              className={`hidden h-full min-h-0 w-full object-cover object-top sm:block ${SHOT_RADIUS}`}
-            />
-          </div>
-        )}
+          )}
+          <button
+            type="button"
+            onClick={() => open(gallery[0])}
+            className="absolute bottom-2 right-2 inline-flex min-h-[40px] items-center gap-2 rounded-full border border-[#D7E2EA]/40 bg-[#0C0C0C]/80 px-4 py-2 text-[0.65rem] font-medium uppercase tracking-widest text-[#D7E2EA] backdrop-blur transition-colors hover:border-[#D7E2EA] hover:bg-[#D7E2EA] hover:text-[#0C0C0C] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#9C4FE2] sm:bottom-4 sm:right-4 sm:text-xs"
+          >
+            <Images size={16} strokeWidth={2} />
+            {gallery.length} photos
+          </button>
+        </div>
       </motion.article>
     </div>
   )
@@ -134,6 +158,9 @@ function Card({
 export default function ProjectsSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end end'] })
+  const [viewer, setViewer] = useState<LightboxState | null>(null)
+  const openGallery: OpenGallery = (title, images, src) =>
+    setViewer({ title, images, index: Math.max(0, images.indexOf(src)) })
 
   return (
     <section
@@ -152,7 +179,14 @@ export default function ProjectsSection() {
 
       <div ref={containerRef} className={`mx-auto max-w-[1400px] ${STACK_VARS}`}>
         {projects.map((project, i) => (
-          <Card key={project.id} project={project} index={i} total={projects.length} progress={scrollYProgress} />
+          <Card
+            key={project.id}
+            project={project}
+            index={i}
+            total={projects.length}
+            progress={scrollYProgress}
+            onOpen={openGallery}
+          />
         ))}
       </div>
 
@@ -178,7 +212,8 @@ export default function ProjectsSection() {
                   alt={`${item.name} — aperçu`}
                   loading="lazy"
                   decoding="async"
-                  className="h-40 w-full object-cover object-top"
+                  className={`h-40 w-full object-cover object-top ${ZOOM}`}
+                  onClick={() => openGallery(item.name, [item.image!], item.image!)}
                 />
               ) : (
                 <div className="flex h-40 w-full items-center justify-center bg-gradient-to-br from-[#1a1a1a] to-[#0C0C0C]">
@@ -193,6 +228,12 @@ export default function ProjectsSection() {
           ))}
         </ul>
       </div>
+
+      <Lightbox
+        state={viewer}
+        onChange={(index) => setViewer((v) => v && { ...v, index })}
+        onClose={() => setViewer(null)}
+      />
     </section>
   )
 }
