@@ -9,7 +9,6 @@ mkdirSync(OUT, { recursive: true });
 
 // key, dir (or url), port, path, server type, scroll offsets for the 3 frames
 const TARGETS = [
-  { key: 'rais-store', dir: '/Users/rayen/site rais',                 port: 4901, scrolls: [0, 900, 2200] },
   { key: 'farhty',     url: 'https://farhty.vercel.app',              scrolls: [0, 800, 1800] },
   { key: 'hydro',      dir: '/Users/rayen/Desktop/HYDR-project/site', port: 4902, php: true, scrolls: [0, 1000, 2400] },
   { key: 'calyrox',    dir: '/Users/rayen/sport',                     port: 4903, scrolls: [0, 900, 2000] },

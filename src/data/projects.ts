@@ -25,6 +25,8 @@ export const projects: Project[] = [
     summary:
       "Plateforme sneakers à Tunis : vitrine PWA en dark/light, panier et commande WhatsApp, API REST NestJS (catalogue, commandes, paiements, audit) et espace admin protégé par JWT + 2FA TOTP.",
     stack: ['NestJS', 'MySQL', 'PWA', 'JWT + TOTP', 'OVH / Plesk'],
+    href: 'https://raisstore.tn/',
+    linkLabel: 'Site en ligne',
     images: ['/shots/rais-store-1.webp', '/shots/rais-store-2.webp', '/shots/rais-store-3.webp'],
   },
   {

@@ -38,7 +38,7 @@ node scripts/shoot-one.mjs isp      # un seul projet
 ```
 
 Les cibles (dossier, port, positions de scroll) sont listées en haut de
-[`scripts/shoot.mjs`](scripts/shoot.mjs) ; Calyrox a sa propre passe ([`scripts/shoot-calyrox.mjs`](scripts/shoot-calyrox.mjs)) parce qu’il faut franchir sa porte d’entrée avant de scroller. Après la capture, convertir en WebP :
+[`scripts/shoot.mjs`](scripts/shoot.mjs) ; Calyrox a sa propre passe ([`scripts/shoot-calyrox.mjs`](scripts/shoot-calyrox.mjs)) parce qu’il faut franchir sa porte d’entrée avant de scroller. Rais Store aussi ([`scripts/shoot-rais.mjs`](scripts/shoot-rais.mjs)) : il est capturé en production sur raisstore.tn, puisque le catalogue vient de son API. Après la capture, convertir en WebP :
 
 ```bash
 python3 -c "
