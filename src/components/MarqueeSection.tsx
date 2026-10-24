@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
 
 const SHOTS = [
-  'rais-store-1', 'farhty-1', 'calyrox-1', 'isp-1', 'hydro-1', 'palvina-1', 'zouza-1',
+  'raisstore-1', 'farhty-1', 'calyrox-1', 'isp-1', 'hydro-1', 'palvina-1', 'zouza-1',
   'mayastyle-1', 'sashastyle-1', 'parfum-1', 'autocar-1', 'resto-1', 'rodayne-1',
-  'jiji-1', 'rais-store-2', 'farhty-2', 'calyrox-2', 'hydro-2', 'palvina-2',
+  'jiji-1', 'raisstore-2', 'farhty-2', 'calyrox-2', 'hydro-2', 'palvina-2',
   'zouza-2', 'isp-2', 'mayastyle-2', 'sashastyle-2', 'parfum-2', 'autocar-2', 'resto-2',
-  'rodayne-2', 'rais-store-3', 'farhty-3', 'calyrox-3', 'hydro-3', 'palvina-3',
+  'rodayne-2', 'raisstore-3', 'farhty-3', 'calyrox-3', 'hydro-3', 'palvina-3',
   'zouza-3', 'isp-3', 'mayastyle-3', 'sashastyle-3', 'parfum-3', 'autocar-3', 'resto-3',
 ].map((n) => `/shots/${n}.webp`)
 

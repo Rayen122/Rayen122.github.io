@@ -22,17 +22,17 @@ const hideTest = () => page.evaluate(() => {
 });
 await hideTest();
 
-await page.screenshot({ path: `${OUT}/rais-store-1.png` });
+await page.screenshot({ path: `${OUT}/raisstore-1.png` });
 
 await page.evaluate(() => document.getElementById('shop').scrollIntoView({ block: 'start', behavior: 'instant' }));
 await sleep(2500);
-await page.screenshot({ path: `${OUT}/rais-store-2.png` });
+await page.screenshot({ path: `${OUT}/raisstore-2.png` });
 
 await page.evaluate(() => [...document.querySelectorAll('#shop .product-card')].find((c) => /Dunk Low/.test(c.innerText))?.querySelector('img')?.click());
 await page.waitForSelector('.detail-modal', { visible: true, timeout: 10000 });
 await sleep(2000);
 await hideTest();
-await page.screenshot({ path: `${OUT}/rais-store-3.png` });
+await page.screenshot({ path: `${OUT}/raisstore-3.png` });
 
 await browser.close();
 console.log('done');
