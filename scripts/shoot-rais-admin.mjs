@@ -43,16 +43,42 @@ await sleep(1500);
 await shot(3);
 await page.click('#close-product-modal');
 
-await show('orders');
-// Customer names are test fixtures and the owner's own details: blur that column.
-await page.evaluate(() => {
+// Customer details are test fixtures and the owner's own: blur those columns.
+const blurColumns = (pattern) => page.evaluate((source) => {
+  const re = new RegExp(source, 'i');
   for (const table of document.querySelectorAll('table')) {
-    const col = [...table.querySelectorAll('th')].findIndex((th) => /client/i.test(th.innerText));
-    if (col < 0) continue;
-    for (const td of table.querySelectorAll(`td:nth-child(${col + 1})`)) td.style.filter = 'blur(6px)';
+    [...table.querySelectorAll('th')].forEach((th, col) => {
+      if (!re.test(th.innerText)) return;
+      for (const td of table.querySelectorAll(`td:nth-child(${col + 1})`)) td.style.filter = 'blur(6px)';
+    });
   }
-});
+}, pattern.source);
+
+await show('orders');
+await blurColumns(/^client$/);
 await shot(4);
+
+await show('promos');
+await shot(5);
+
+await show('customers');
+await blurColumns(/^(nom|téléphone|email)$/);
+await shot(6);
+
+await show('reviews');
+await blurColumns(/^client$/);
+await shot(7);
+
+await show('settings');
+await page.evaluate(() => {
+  for (const label of document.querySelectorAll('label'))
+    if (/whatsapp/i.test(label.innerText)) {
+      // The label's example is the owner's own number too.
+      label.innerHTML = label.innerHTML.replace(/\d{8,}/, '<span style="filter: blur(5px)">$&</span>');
+      label.parentElement.querySelector('input').style.filter = 'blur(6px)';
+    }
+});
+await shot(8);
 
 await browser.close();
 console.log('done');

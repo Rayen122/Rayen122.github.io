@@ -36,6 +36,10 @@ export const projects: Project[] = [
       '/shots/raisstore-admin-2.webp',
       '/shots/raisstore-admin-3.webp',
       '/shots/raisstore-admin-4.webp',
+      '/shots/raisstore-admin-5.webp',
+      '/shots/raisstore-admin-6.webp',
+      '/shots/raisstore-admin-7.webp',
+      '/shots/raisstore-admin-8.webp',
     ],
   },
   {
