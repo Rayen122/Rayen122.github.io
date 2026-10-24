@@ -27,7 +27,16 @@ export const projects: Project[] = [
     stack: ['NestJS', 'MySQL', 'PWA', 'JWT + TOTP', 'OVH / Plesk'],
     href: 'https://raisstore.tn/',
     linkLabel: 'Site en ligne',
-    images: ['/shots/raisstore-1.webp', '/shots/raisstore-2.webp', '/shots/raisstore-3.webp'],
+    images: ['/shots/raisstore-1.webp', '/shots/raisstore-admin-1.webp', '/shots/raisstore-2.webp'],
+    gallery: [
+      '/shots/raisstore-1.webp',
+      '/shots/raisstore-2.webp',
+      '/shots/raisstore-3.webp',
+      '/shots/raisstore-admin-1.webp',
+      '/shots/raisstore-admin-2.webp',
+      '/shots/raisstore-admin-3.webp',
+      '/shots/raisstore-admin-4.webp',
+    ],
   },
   {
     id: 'farhty',

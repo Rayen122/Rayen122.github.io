@@ -38,7 +38,7 @@ node scripts/shoot-one.mjs isp      # un seul projet
 ```
 
 Les cibles (dossier, port, positions de scroll) sont listées en haut de
-[`scripts/shoot.mjs`](scripts/shoot.mjs) ; Calyrox a sa propre passe ([`scripts/shoot-calyrox.mjs`](scripts/shoot-calyrox.mjs)) parce qu’il faut franchir sa porte d’entrée avant de scroller. Rais Store aussi ([`scripts/shoot-rais.mjs`](scripts/shoot-rais.mjs)) : il est capturé en production sur raisstore.tn, puisque le catalogue vient de son API. Après la capture, convertir en WebP :
+[`scripts/shoot.mjs`](scripts/shoot.mjs) ; Calyrox a sa propre passe ([`scripts/shoot-calyrox.mjs`](scripts/shoot-calyrox.mjs)) parce qu’il faut franchir sa porte d’entrée avant de scroller. Rais Store aussi ([`scripts/shoot-rais.mjs`](scripts/shoot-rais.mjs)) : il est capturé en production sur raisstore.tn, puisque le catalogue vient de son API. Son back-office a une passe à part ([`scripts/shoot-rais-admin.mjs`](scripts/shoot-rais-admin.mjs)) : capturé sur la stack locale (`./start.sh` dans le dépôt de la boutique) avec l’admin de seed, jamais en production où sont les vrais clients. Le mot de passe passe par `RAIS_ADMIN_PASSWORD`. Après la capture, convertir en WebP :
 
 ```bash
 python3 -c "
