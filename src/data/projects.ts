@@ -55,6 +55,19 @@ export const projects: Project[] = [
     images: ['/shots/farhty-1.webp', '/shots/farhty-2.webp', '/shots/farhty-3.webp'],
   },
   {
+    id: 'glowy',
+    name: 'Glowy',
+    category: 'Équipe · Plateforme web',
+    year: '2026',
+    summary:
+      "Réservation de salons de beauté vérifiés en Tunisie, en équipe de cinq : carte, créneaux sans double réservation, avis vérifiés, fidélité et dashboard salon. Cinq fonctions IA, dont conseil beauté par photo et chatbot de réservation.",
+    stack: ['Next.js 16', 'TypeScript', 'MongoDB', 'Auth.js', 'Gemini + Groq'],
+    href: 'https://glowy-beta.vercel.app/',
+    linkLabel: 'Site en ligne',
+    images: ['/shots/glowy-1.webp', '/shots/glowy-2.webp', '/shots/glowy-3.webp'],
+    gallery: Array.from({ length: 6 }, (_, i) => `/shots/glowy-${i + 1}.webp`),
+  },
+  {
     id: 'john-coffee',
     name: 'John Coffee Food',
     category: 'Client · Gestion de café',
